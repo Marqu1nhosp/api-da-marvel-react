@@ -1,3 +1,4 @@
+
 import React, {useContext} from 'react';
 import { Busca } from './styles';
 import Swicth from 'react-switch'
@@ -7,6 +8,8 @@ import { FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import api from '../../services/api';
+import { CardList } from '../../pages/Characteres/styles';
+
 
 interface ResponseData {
   id: string;
@@ -19,43 +22,41 @@ interface ResponseData {
 
 }
 
-function FiltroSearch(){
+interface FilterSearchInterface {
+  setCharacters: any
+}
+
+ function FiltroSearch({setCharacters}: FilterSearchInterface){
    
     const [search, setSearch] = useState('')
-    
-
-    console.log(search)
-
-    useEffect(()=>{
-     
-
-    
-
+  
+ useEffect(()=>{
       api
-      .get('/searchCharacters')
+      .get(`/characters?nameStartsWith=${search}`)
       .then(response =>  {
-        setSearch(response.data.data.results);
+         setCharacters(response.data.data.results);
+        console.log(response.data.data.results)
         })
       .catch(err => console.log(err));
     }, [search])
-
+    
       
     return(
-        
-
-      <Busca>
+      
+    <Busca>
             <input 
             value={search}
             onChange={(ev) => setSearch(ev.target.value)}
             type="text" 
             id="txtBusca" 
             placeholder="Buscar..."/>
-            <button id="btnBusca"><FiSearch>Buscar</FiSearch></button>   
-      </Busca>
+            
+    </Busca> 
+ 
             
           
         
     )
-  }
-
-export default FiltroSearch;
+  
+    }
+export default FiltroSearch; 

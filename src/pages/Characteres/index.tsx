@@ -15,33 +15,15 @@ interface ResponseData {
 
 }
 
-function Characters() {
+interface characterInterface {
+  characters: any[],
+  handleMore: any,
 
-  const [characters, setCharacters] = useState<ResponseData[]>([])
-  useEffect(()=>{
-    api
-    .get('/characters')
-    .then(response =>  {
-     setCharacters(response.data.data.results);
-      })
-    .catch(err => console.log(err));
-  }, [])
+}
 
-  const handleMore = useCallback( async () => {
-    try {
-      const offset = characters.length;
-      const response = await api.get('characters', {
-        params: {
-          offset,
-        },
-      });
+function Characters({characters, handleMore}: characterInterface) {
 
-      setCharacters([... characters, ... response.data.data.results]);
-    } 
-   catch(err) {
-        console.log(err);
-    }
-  }, [characters]);
+  
 
     return(
       

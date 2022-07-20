@@ -3,8 +3,15 @@ import styled  from "styled-components";
 export const Busca = styled.div `
 display: flex;
 align-items: center;
-justify-content: space-around;
-margin: 20px auto;  
-padding: 0 50px;
+
+margin: 25px 850px;;  
+padding: 0 35px;
+
+>input{
+    height: 30px;
+   
+}
+
+
 
 `;
